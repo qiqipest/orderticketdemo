@@ -1,0 +1,39 @@
+﻿session_set_save_handler
+
+?php//header("content-type:text/html;chartset=utf-8");//print_r($_POST); //print_r打印if(!empty($_POST)) //empty()是用来检查指定的变量是否为空{//print_r($_POST);
+$username = $_POST['username'];$password = $_POST['password'];$email = isset($_POST['email'])?$_POST['email']:'ming@163.com';//isset()是用来检查变量是否设置 上面用一个三元运算符来书写默认值//echo "用户名是：".$username."密码是：".$password."emali是:".$email;//.(点) 是连接符 相当于+连接符
+
+$sql = "select * from admin where username='".$username."' andpassword=md5('".$password."') ";//连接数据库 主机名 localhost//mysql_connect('localhost','root','');//选择数据库//mysql_select_db('mcms');//数据库连接编码//mysql_query('set names utf8');//链接数据库语句已经写在init.php文件里//执行这条语句 得到的结果集存在query变量$query = mysql_query($sql);if(!$query){die(mysql_error().$sql);}
+if($row=mysql_fetch_assoc($query)){
+//在init.php文件已经有session_start();$_SESSION['admin_username']=$row['username'];$_SESSION['admin_userid']=$row['id'];//下面用cookie来写//setcookie('admin_username','$row['id']',time()+3600)//要保存一天 time()+3600 *24//要保存一个月 time()+3600 *24 *30//。。。//跳转 登录成功 跳转到后台首页//跳转方式2种 header('location:地址') 和 JS语句跳转//header('location:index.php');//JS方式 推荐 因为js方式可以提示 与用户交互echo"<script>alert('登录成功');location.href='?m=news&index&admin=1';</script>";}else{//跳转 登录不成功 登录到登录页 让用户重新登录//header('location:login.php');echo"<script>alert('登录不成功，您的用户名或密码错误');location.href='login.php';</script>";
+}
+
+die();//当我们代码执行完 要中止程序 用die()或 exit()方法来中止程序//更多时候使用die()//exit()//}
+?>
+
+Dokeos  good sample http://demo.dokeos.net/index.php
+
+Vcalendar
+
+
+
+date("Y-m-d H:i:s" ,strtotime( $srcDataStr ))顺利插入数据。
+
+
+<?php
+
+mysql_connect('30c.org','username','password');
+
+mysql_select_db('db_name');
+
+$sql = "SHOW TABLE STATUS FROM db_name LIKE 'tb_name'";
+
+$res = mysql_query($sql);
+
+$arr = mysql_fetch_array($res);
+
+$max_id = $arr['Auto_increment'];
+
+$next_id = $max_id+1;
+
+?>

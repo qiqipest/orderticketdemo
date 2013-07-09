@@ -1,0 +1,10 @@
+<?php
+
+class Blog extends CI_Controller {
+di
+    function index()
+    {
+       $this->load->view('blog_view');
+    }
+}
+?>

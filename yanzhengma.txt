@@ -1,0 +1,85 @@
+﻿<?
+
+ $IsLetter = false; //是否出现字母
+ session_start();
+ $Num  = $_GET["n"];
+ 
+ //生成验证码图片
+ header("Content-type: image/PNG");
+ $im   = imagecreate(46,20);
+ srand((double)microtime()*1000000);
+ $Red  = rand(0,200);
+ $Green  = rand(0,200);
+ $Blue  = rand(0,200);
+ $Color  = imagecolorallocate($im, $Red, $Green, $Blue);
+ $BackGround = imagecolorallocate($im, 255,255,255);
+ imagefill($im,0,0,$BackGround);
+ 
+ if($IsLetter)
+ {
+  $a = substr(md5($Num*10000000000000000),0,1);
+  $b = substr(md5($Num*10000000000000000),4,1);
+  $c = substr(md5($Num*10000000000000000),8,1);
+  $d = substr(md5($Num*10000000000000000),12,1);
+ }
+ else
+ {
+  $a = substr(hexdec(md5($Num*10000000000000000)),2,1);
+  $b = substr(hexdec(md5($Num*10000000000000000)),3,1);
+  $c = substr(hexdec(md5($Num*10000000000000000)),4,1);
+  $d = substr(hexdec(md5($Num*10000000000000000)),5,1);
+ }
+ 
+ $Authnum    = strtoupper($a.$b.$c.$d);
+ 
+ $_SESSION["Authnum"] = $Authnum;
+ 
+ imagestring($im, 5, 5, 2, $Authnum, $Color);
+ for($i=0;$i<200;$i++)   //加入干扰象素
+ {
+     $randcolor = imagecolorallocate($im,rand(0,255),rand(0,255),rand(0,255));
+     imagesetpixel($im, rand()p , rand()0 , $randcolor);
+ }
+ imagepng($im);
+ imagedestroy($im);
+?>
+ 
+需要显示验证码的文件：
+<?
+session_start();
+$AuthInput = $_POST["AuthInput"];
+$action = $_GET["action"];
+?>
+<script language="javascript">
+function lyalert(){
+if( addform.AuthInput.value=="") {
+alert("请填写验证码");
+document.addform.AuthInput.focus();
+return false;
+} 
+}
+</script>
+<form name="addform" method="post" action="?action=save" id="addform" onsubmit="return lyalert()">
+<table width="500" border="1" cellpadding="5" cellspacing="0">
+<tr><td>验证码：</td>
+<td><input name="AuthInput" type="text" id="AuthInput"  size="8" maxlength="4" /><script>document.write("<img src=\"authimg.php?n=",Math.random(),"\" />");</script></td></tr>
+<tr><td colspan="2" align="center"><input type="submit" name="Button1" value="确定" id="Button1" /></td>
+</tr>
+</table>
+<p>&nbsp;</p>
+</form>
+  
+<?
+if($action=='save')
+{
+if ($_SESSION["Authnum"] != $AuthInput)
+{
+?>
+<script language="javascript">
+alert("验证码输入不正确");
+</script>
+<? 
+}
+else
+{
+ ?>  

@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>jquer.citypicker.js.example</title>
+        <link type="text/css" href="css/jquery.citypicker.css" rel="stylesheet" />
+        <script type="text/javascript" src="jquery.js">
+        </script>
+        <script type="text/javascript" src="jquery.citypicker.js">
+        </script>
+    </head>
+    <body>
+        <h1>jQuery.citypicker.js.example</h1>
+        <label>
+            城市1
+        </label>：<input id = "1" class ="cp" type="text" value="">
+        <label>
+            城市2
+        </label>：<input id="2" class ="cp" type="text" value="">
+        <label>
+            城市3
+        </label>：<input id="3" class ="cp" type="text" value="">
+        <label>
+            城市4
+        </label>：<input id="4" class ="cp" type="text" value="">
+        <script>
+            $(function(){
+                $(".cp").citypicker();
+            })
+        </script>
+    </body>
+</html>
